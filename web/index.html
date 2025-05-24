@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEIC Vocabulary Categories</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" />
+  <style>
+    body {
+      padding: 2rem;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border: 1px solid var(--pico-border-color);
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+      background-color: var(--pico-card-background-color);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .card:hover {
+      background-color: var(--pico-muted-border-color);
+    }
+
+    .card img {
+      width: 48px;
+      height: 48px;
+      margin-right: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <main class="container">
+    <h1>หมวดคำศัพท์ TOEIC</h1>
+
+    <div class="card" onclick="goTo('economy.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3448/3448532.png" alt="icon">
+      <div class="card-title">1 คำศัพท์ TOEIC หมวดเศรษฐศาสตร์ / การเงิน</div>
+    </div>
+
+    <div class="card" onclick="goTo('business.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3448/3448562.png" alt="icon">
+      <div class="card-title">2 คำศัพท์ TOEIC หมวดที่ทำงาน / ธุรกิจ</div>
+    </div>
+
+    <div class="card" onclick="goTo('travel.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3448/3448580.png" alt="icon">
+      <div class="card-title">3 คำศัพท์ TOEIC หมวดท่องเที่ยว</div>
+    </div>
+
+    <div class="card" onclick="goTo('health.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3448/3448615.png" alt="icon">
+      <div class="card-title">4 คำศัพท์ TOEIC หมวดสุขภาพ / ร่างกาย</div>
+    </div>
+
+    <div class="card" onclick="goTo('law.html')">
+      <img src="https://cdn-icons-png.flaticon.com/512/3448/3448602.png" alt="icon">
+      <div class="card-title">5 คำศัพท์ TOEIC หมวดกฎหมาย</div>
+    </div>
+  </main>
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>

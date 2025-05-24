@@ -1,0 +1,5 @@
+ 
+ go mod init scraper
+ go get github.com/PuerkitoBio/goquery
+
+ go run fetcher/main.go

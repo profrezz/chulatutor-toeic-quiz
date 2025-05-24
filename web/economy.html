@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vocabulary Quiz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" />
+  <link rel="stylesheet" href="/css/qiz.css" />
+
+</head>
+<body data-theme="dark">
+
+  <main class="container">
+    <div class="sticky">
+        <h1>คำศัพท์ TOEIC หมวดเศรษฐศาสตร์ / การเงิน</h1>
+    <div id="score">Score: 0 / 10</div>
+    </div>
+    
+    <div id="quiz-container"></div>
+  </main>
+
+  <script>
+    async function loadJson() {
+      const res = await fetch('data/economy.json');
+      const data = await res.json();
+      return data;
+    }
+
+    // Utility to shuffle an array in place
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getRandomSample(arr, count) {
+      return shuffleArray(arr.slice()).slice(0, count);
+    }
+
+    function createAnswerButtons(correctMeaning, allMeanings) {
+      const answers = [correctMeaning];
+      const otherMeanings = allMeanings.filter(m => m !== correctMeaning);
+      shuffleArray(otherMeanings);
+      answers.push(...otherMeanings.slice(0, 3));
+      shuffleArray(answers);
+      return answers;
+    }
+
+    function updateScoreDisplay(score, total) {
+      document.getElementById('score').textContent = `Score: ${score} / 10`;
+    }
+
+    async function startQuiz() {
+      const data = await loadJson();
+      if (!Array.isArray(data) || data.length < 10) {
+        alert('JSON must contain at least 10 objects.');
+        return;
+      }
+
+      const questions = getRandomSample(data, 10);
+      const allMeanings = data.map(item => item.meaning);
+
+      const quizContainer = document.getElementById('quiz-container');
+      quizContainer.innerHTML = '';
+
+      let score = 0;
+      let answeredCount = 0;
+      updateScoreDisplay(score, 0);
+
+      questions.forEach((q, idx) => {
+        const card = document.createElement('section');
+        card.className = 'question-card';
+
+        const questionTitle = document.createElement('h3');
+        questionTitle.textContent = `${idx + 1}. ${q.eng}`;
+        card.appendChild(questionTitle);
+
+        const answersDiv = document.createElement('div');
+        answersDiv.className = 'answers';
+
+        const answers = createAnswerButtons(q.meaning, allMeanings);
+
+        answers.forEach(answer => {
+          const btn = document.createElement('button');
+          btn.className = 'answer-btn';
+          btn.textContent = answer;
+          btn.type = 'button';
+
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('correct') || btn.classList.contains('wrong')) {
+              return; // already answered
+            }
+
+            // Mark correct/wrong
+            if (answer === q.meaning) {
+              btn.classList.add('correct');
+              score++;
+            } else {
+              btn.classList.add('wrong');
+              // Highlight correct button
+              Array.from(answersDiv.children).forEach(b => {
+                if (b.textContent === q.meaning) {
+                  b.classList.add('correct');
+                }
+              });
+            }
+
+            // Disable all buttons
+            Array.from(answersDiv.children).forEach(b => b.disabled = true);
+
+            answeredCount++;
+            updateScoreDisplay(score, answeredCount);
+          });
+
+          answersDiv.appendChild(btn);
+        });
+
+        card.appendChild(answersDiv);
+        quizContainer.appendChild(card);
+      });
+    }
+
+    startQuiz();
+  </script>
+</body>
+</html>

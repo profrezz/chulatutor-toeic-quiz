@@ -1,0 +1,56 @@
+body {
+      padding: 1rem;
+    }
+    #score {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .question-card {
+      margin-bottom: 2rem;
+      border: 1px solid var(--pico-border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      background-color: var(--pico-card-background-color);
+    }
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .answer-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+      background-color: grey;
+      color: var(--pico-button-color);
+      text-align: center;
+      user-select: none;
+    }
+    .answer-btn:hover {
+      background-color: white;
+      color: black;
+    }
+    .correct {
+      border-color: #4caf50 !important;
+      border-width: 5px;
+    }
+    .wrong {
+      border-color: #f44336 !important;
+      border-width: 5px;
+
+    }
+
+    .sticky {
+       position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--pico-background-color);
+  padding: 1rem 0;
+  margin: 0 0 1rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+    }
